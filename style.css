@@ -467,3 +467,14 @@ footer { text-align: center; padding: 20px; border-top: 1px solid var(--bg-light
 img {
     cursor: pointer;
 }
+/* Agar link di kontak tetap terlihat seperti box */
+.contact-box-item {
+    text-decoration: none;
+    color: var(--text-main);
+    transition: var(--transition);
+}
+.contact-box-item:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    color: var(--text-main);
+}

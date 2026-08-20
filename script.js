@@ -10,15 +10,19 @@ document.addEventListener("DOMContentLoaded", function() {
     // Smooth Scrolling untuk Anchor Links di Navbar
     document.querySelectorAll('.nav-links a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-            e.preventDefault();
             const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
             
-            if(targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
+            // HANYA jalankan smooth scroll jika link berawalan '#' (anchor link)
+            if (targetId && targetId.startsWith('#')) {
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
             }
         });
     });
@@ -76,4 +80,41 @@ document.addEventListener("DOMContentLoaded", function() {
             document.body.style.overflow = 'auto';
         }
     });
-});
+
+    // ===== DOWNLOAD CV DENGAN JAVASCRIPT =====
+    const cvBtn = document.getElementById('cv-download-btn');
+    
+    if (cvBtn) {
+        cvBtn.addEventListener('click', function(e) {
+            e.preventDefault(); // Mencegah perilaku default navigasi biasa
+            
+            const fileName = 'CV-Ayrton-Senna.pdf';
+            const fileUrl = fileName;
+            
+            // Mengambil file sebagai blob agar langsung terunduh
+            fetch(fileUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('File tidak ditemukan');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    // Buat URL objek dari blob
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    // Fallback: buka di tab baru jika fetch gagal (misal masalah CORS)
+                    console.warn('Download gagal, membuka di tab baru:', error);
+                    window.open(fileUrl, '_blank');
+                });
+        });
+    }
+}); // Penutup block DOMContentLoaded
