@@ -28,14 +28,23 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Navbar Background Change on Scroll
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.style.boxShadow = '0 10px 30px -10px rgba(2,12,27,0.7)';
+    // ===== MOBILE MENU TOGGLE (HAMBURGER) =====
+    const mobileMenu = document.getElementById('mobile-menu');
+const navLinks = document.querySelector('.nav-links');
+
+if (mobileMenu) {
+    mobileMenu.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+        const icon = mobileMenu.querySelector('i');
+        if (navLinks.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-xmark');
         } else {
-            navbar.style.boxShadow = 'none';
+            icon.classList.remove('fa-xmark');
+            icon.classList.add('fa-bars');
         }
-    });
+        });
+    }
 
     // ===== LIGHTBOX UNTUK SEMUA GAMBAR (UNIVERSAL) =====
     // Buat elemen overlay

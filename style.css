@@ -478,3 +478,64 @@ img {
     transform: translateY(-3px);
     color: var(--text-main);
 }
+/* ===== HAMBURGER MENU ===== */
+.hamburger {
+    display: none;           /* Sembunyi di layar besar */
+    font-size: 1.8rem;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 5px 10px;
+    z-index: 1001;
+    user-select: none;
+}
+
+.hamburger:hover {
+    color: var(--accent);
+}
+
+/* ===== RESPONSIVE UNTUK HP ===== */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;      /* Muncul di HP */
+    }
+
+    .nav-links {
+        display: none;               /* Sembunyi default */
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(10, 10, 10, 0.96);
+        backdrop-filter: blur(12px);
+        padding: 25px 30px;
+        gap: 18px;
+        border-bottom: 1px solid var(--bg-lighter);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        display: flex;       /* Muncul saat diklik */
+    }
+
+    .nav-container {
+        padding: 15px 20px;
+        position: relative;
+    }
+
+    /* Opsional: animasi halus */
+    .nav-links {
+        transition: all 0.3s ease;
+    }
+
+    /* Perbaiki tombol Contact & Download CV di menu mobile */
+    .nav-links .btn-nav {
+        display: inline-block;
+        text-align: center;
+        width: fit-content;
+        padding: 10px 24px;
+        margin: 5px 0;
+    }
+}
